@@ -12,6 +12,8 @@ export function useRepositoriesContainer() {
 		fetchNextPage,
 		hasNextPage,
 		isFetchingNextPage,
+		refetch,
+		isRefetching,
 	} = useGetRepositories()
 
 	const repositories = data?.pages.flatMap((page) => page ?? []) ?? []
@@ -43,7 +45,9 @@ export function useRepositoriesContainer() {
 		error,
 		handleOpenUrl,
 		handleLoadMore,
+		refetch,
 		hasNextPage,
 		isFetchingNextPage,
+		isRefetching,
 	}
 }

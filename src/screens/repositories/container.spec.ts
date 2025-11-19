@@ -56,6 +56,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: jest.fn(),
 			hasNextPage: false,
 			isFetchingNextPage: false,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -100,6 +102,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: jest.fn(),
 			hasNextPage: true,
 			isFetchingNextPage: false,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -117,6 +121,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: jest.fn(),
 			hasNextPage: false,
 			isFetchingNextPage: false,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -135,6 +141,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: jest.fn(),
 			hasNextPage: false,
 			isFetchingNextPage: false,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -156,6 +164,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: mockFetchNextPage,
 			hasNextPage: true,
 			isFetchingNextPage: false,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -178,6 +188,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: mockFetchNextPage,
 			hasNextPage: false,
 			isFetchingNextPage: false,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -200,6 +212,8 @@ describe('useRepositoriesContainer', () => {
 			fetchNextPage: mockFetchNextPage,
 			hasNextPage: true,
 			isFetchingNextPage: true,
+			refetch: jest.fn(),
+			isRefetching: false,
 		} as unknown as ReturnType<typeof useGetRepositories>)
 
 		const { result } = renderHook(() => useRepositoriesContainer())
@@ -221,6 +235,8 @@ describe('useRepositoriesContainer', () => {
 				fetchNextPage: jest.fn(),
 				hasNextPage: false,
 				isFetchingNextPage: false,
+				refetch: jest.fn(),
+				isRefetching: false,
 			} as unknown as ReturnType<typeof useGetRepositories>)
 		})
 

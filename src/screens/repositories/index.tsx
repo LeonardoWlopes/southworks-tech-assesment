@@ -2,6 +2,7 @@ import { FlashList } from '@shopify/flash-list'
 import { useTranslation } from 'react-i18next'
 import {
 	ActivityIndicator,
+	RefreshControl,
 	Switch,
 	Text,
 	TouchableOpacity,
@@ -27,7 +28,9 @@ export function RepositoriesScreen() {
 		error,
 		handleOpenUrl,
 		handleLoadMore,
+		refetch,
 		isFetchingNextPage,
+		isRefetching,
 	} = useRepositoriesContainer()
 
 	if (isLoading) {
@@ -106,6 +109,13 @@ export function RepositoriesScreen() {
 				contentContainerStyle={{ paddingBottom: 16 }}
 				onEndReached={handleLoadMore}
 				onEndReachedThreshold={0.5}
+				refreshControl={
+					<RefreshControl
+						refreshing={isRefetching}
+						onRefresh={refetch}
+						tintColor="#007AFF"
+					/>
+				}
 				ListFooterComponent={
 					isFetchingNextPage ? (
 						<View style={styles.loadingMore}>
