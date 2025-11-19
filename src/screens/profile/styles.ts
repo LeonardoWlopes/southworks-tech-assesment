@@ -1,7 +1,10 @@
-import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export function useLoginStyles() {
-	return {
+	const { top } = useSafeAreaInsets()
+
+	return StyleSheet.create({
 		container: {
 			flex: 1,
 			padding: 20,
@@ -10,9 +13,11 @@ export function useLoginStyles() {
 			flex: 1,
 			justifyContent: 'center',
 			alignItems: 'center',
+			paddingTop: top,
 		},
 		scrollContainer: {
 			flexGrow: 1,
+			paddingTop: top,
 		},
 		header: {
 			alignItems: 'center',
@@ -24,13 +29,13 @@ export function useLoginStyles() {
 			borderRadius: 50,
 			marginBottom: 15,
 		},
-		organizationName: {
+		userName: {
 			fontSize: 24,
 			fontWeight: 'bold',
 			textAlign: 'center',
 			marginBottom: 5,
 		},
-		organizationLogin: {
+		userLogin: {
 			fontSize: 16,
 			opacity: 0.7,
 			textAlign: 'center',
@@ -43,6 +48,7 @@ export function useLoginStyles() {
 		},
 		infoSection: {
 			marginTop: 20,
+			flex: 1,
 		},
 		infoRow: {
 			flexDirection: 'row',
@@ -98,22 +104,5 @@ export function useLoginStyles() {
 			fontWeight: '500',
 			textAlign: 'center',
 		},
-		verifiedBadge: {
-			flexDirection: 'row',
-			alignItems: 'center',
-			justifyContent: 'center',
-			marginTop: 10,
-			paddingVertical: 8,
-			paddingHorizontal: 15,
-			backgroundColor: '#28a745',
-			borderRadius: 20,
-			alignSelf: 'center',
-		},
-		verifiedText: {
-			color: 'white',
-			fontSize: 14,
-			fontWeight: '500',
-			marginLeft: 5,
-		},
-	} satisfies Record<string, ViewStyle | TextStyle | ImageStyle>
+	})
 }

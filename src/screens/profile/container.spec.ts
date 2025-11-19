@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { Alert, Linking } from 'react-native'
-import type { IOrganization } from '~/interfaces/organization'
-import { useGetOrg } from '~/services/organization'
+import type { IUser } from '~/interfaces/user'
+import { useGetUser } from '~/services/user'
 import { useContainer } from './container'
 
-jest.mock('../../services/organization')
+jest.mock('../../services/user')
 jest.mock('react-native', () => ({
 	Alert: {
 		alert: jest.fn(),
@@ -15,25 +15,25 @@ jest.mock('react-native', () => ({
 	},
 }))
 
-const mockUseGetOrg = useGetOrg as jest.MockedFunction<typeof useGetOrg>
+const mockUseGetUser = useGetUser as jest.MockedFunction<typeof useGetUser>
 
 describe('useContainer', () => {
 	beforeEach(() => {
 		jest.clearAllMocks()
 	})
 
-	it('should return data from useGetOrg', () => {
+	it('should return data from useGetUser', () => {
 		const mockData = {
 			id: 1,
-			login: 'test-org',
-			name: 'Test Organization',
-		} as IOrganization
+			login: 'test-user',
+			name: 'Test User',
+		} as IUser
 
-		mockUseGetOrg.mockReturnValue({
+		mockUseGetUser.mockReturnValue({
 			data: mockData,
 			isLoading: false,
 			error: null,
-		} as unknown as ReturnType<typeof useGetOrg>)
+		} as unknown as ReturnType<typeof useGetUser>)
 
 		const { result } = renderHook(() => useContainer())
 
@@ -43,11 +43,11 @@ describe('useContainer', () => {
 	})
 
 	it('should return loading state', () => {
-		mockUseGetOrg.mockReturnValue({
+		mockUseGetUser.mockReturnValue({
 			data: null,
 			isLoading: true,
 			error: null,
-		} as unknown as ReturnType<typeof useGetOrg>)
+		} as unknown as ReturnType<typeof useGetUser>)
 
 		const { result } = renderHook(() => useContainer())
 
@@ -57,11 +57,11 @@ describe('useContainer', () => {
 	it('should return error state', () => {
 		const mockError = new Error('Test error')
 
-		mockUseGetOrg.mockReturnValue({
+		mockUseGetUser.mockReturnValue({
 			data: null,
 			isLoading: false,
 			error: mockError,
-		} as unknown as ReturnType<typeof useGetOrg>)
+		} as unknown as ReturnType<typeof useGetUser>)
 
 		const { result } = renderHook(() => useContainer())
 
@@ -70,11 +70,11 @@ describe('useContainer', () => {
 
 	describe('formatNumber', () => {
 		beforeEach(() => {
-			mockUseGetOrg.mockReturnValue({
+			mockUseGetUser.mockReturnValue({
 				data: null,
 				isLoading: false,
 				error: null,
-			} as unknown as ReturnType<typeof useGetOrg>)
+			} as unknown as ReturnType<typeof useGetUser>)
 		})
 
 		it('should format numbers in millions', () => {
@@ -101,11 +101,11 @@ describe('useContainer', () => {
 
 	describe('formatDate', () => {
 		beforeEach(() => {
-			mockUseGetOrg.mockReturnValue({
+			mockUseGetUser.mockReturnValue({
 				data: null,
 				isLoading: false,
 				error: null,
-			} as unknown as ReturnType<typeof useGetOrg>)
+			} as unknown as ReturnType<typeof useGetUser>)
 		})
 
 		it('should format date in pt-BR locale', () => {
@@ -120,11 +120,11 @@ describe('useContainer', () => {
 
 	describe('handleOpenUrl', () => {
 		beforeEach(() => {
-			mockUseGetOrg.mockReturnValue({
+			mockUseGetUser.mockReturnValue({
 				data: null,
 				isLoading: false,
 				error: null,
-			} as unknown as ReturnType<typeof useGetOrg>)
+			} as unknown as ReturnType<typeof useGetUser>)
 		})
 
 		it('should open URL when supported', async () => {
@@ -208,11 +208,11 @@ describe('useContainer', () => {
 	})
 
 	it('should return all expected functions and data', () => {
-		mockUseGetOrg.mockReturnValue({
-			data: { id: 1 } as IOrganization,
+		mockUseGetUser.mockReturnValue({
+			data: { id: 1 } as IUser,
 			isLoading: false,
 			error: null,
-		} as unknown as ReturnType<typeof useGetOrg>)
+		} as unknown as ReturnType<typeof useGetUser>)
 
 		const { result } = renderHook(() => useContainer())
 

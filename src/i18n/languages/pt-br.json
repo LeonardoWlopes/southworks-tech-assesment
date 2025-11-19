@@ -1,5 +1,32 @@
 {
 	"erros": {
 		"environment_variables": "Variáveis de ambiente inválidas. Veja a tabela para mais detalhes."
+	},
+	"profile": {
+		"error": "Erro ao carregar informações do usuário",
+		"info": {
+			"company": "Empresa:",
+			"created_at": "Criado em:",
+			"email": "Email:",
+			"location": "Localização:",
+			"twitter": "Twitter:",
+			"updated_at": "Atualizado em:"
+		},
+		"links": {
+			"view_github": "Ver no GitHub",
+			"visit_blog": "Visitar Blog"
+		},
+		"loading": "Carregando informações do usuário...",
+		"not_found": "Nenhuma informação encontrada",
+		"stats": {
+			"followers": "Seguidores",
+			"following": "Seguindo",
+			"public_gists": "Gists\nPúblicos",
+			"public_repos": "Repositórios\nPúblicos"
+		}
+	},
+	"tabs": {
+		"home": "Home",
+		"profile": "Perfil"
 	}
 }

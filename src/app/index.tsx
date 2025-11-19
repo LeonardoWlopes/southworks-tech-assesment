@@ -1,5 +1,5 @@
-import { InitialScreen } from '~/screens/initial'
+import { Redirect } from 'expo-router'
 
-export default function () {
-	return <InitialScreen />
+export default function Index() {
+	return <Redirect href="/(tabs)/profile" />
 }

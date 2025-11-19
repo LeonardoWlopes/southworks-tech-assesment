@@ -1,1 +1,3 @@
-export enum EQueryKeys {}
+export enum EQueryKeys {
+	USER = 'USER',
+}

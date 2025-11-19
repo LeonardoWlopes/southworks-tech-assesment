@@ -1,8 +1,10 @@
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { Alert, Linking } from 'react-native'
-import { useGetOrg } from '~/services/organization'
+import { useGetUser } from '~/services/user'
 
 export function useContainer() {
-	const { data, isLoading, error } = useGetOrg()
+	const { data, isLoading, error } = useGetUser()
 
 	function handleOpenUrl(url: string) {
 		return async function openUrl() {
@@ -30,7 +32,7 @@ export function useContainer() {
 	}
 
 	function formatDate(dateString: string) {
-		return new Date(dateString).toLocaleDateString('pt-BR')
+		return format(new Date(dateString), 'dd/MM/yyyy', { locale: ptBR })
 	}
 
 	return {
