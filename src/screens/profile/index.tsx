@@ -7,12 +7,13 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native'
-import { useContainer } from './container'
+import { DEFAULT_TOUCHABLE_OPACITY_PROPS } from '~/utils/props'
+import { useProfileContainer } from './container'
 import { useLoginStyles } from './styles'
 
 export function ProfileScreen() {
 	const { data, isLoading, error, handleOpenUrl, formatNumber, formatDate } =
-		useContainer()
+		useProfileContainer()
 	const { t } = useTranslation('profile')
 
 	const styles = useLoginStyles()
@@ -167,6 +168,7 @@ export function ProfileScreen() {
 
 			<View style={styles.linkSection}>
 				<TouchableOpacity
+					{...DEFAULT_TOUCHABLE_OPACITY_PROPS}
 					style={styles.linkButton}
 					onPress={handleOpenUrl(data.html_url)}
 				>
@@ -177,6 +179,7 @@ export function ProfileScreen() {
 
 				{data.blog && (
 					<TouchableOpacity
+						{...DEFAULT_TOUCHABLE_OPACITY_PROPS}
 						style={styles.linkButton}
 						onPress={handleOpenUrl(data.blog)}
 					>

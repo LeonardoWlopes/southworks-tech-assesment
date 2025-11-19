@@ -1,10 +1,12 @@
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { useTranslation } from 'react-i18next'
 import { Alert, Linking } from 'react-native'
 import { useGetUser } from '~/services/user'
 
-export function useContainer() {
+export function useProfileContainer() {
 	const { data, isLoading, error } = useGetUser()
+	const { t } = useTranslation('profile')
 
 	function handleOpenUrl(url: string) {
 		return async function openUrl() {
@@ -13,10 +15,10 @@ export function useContainer() {
 				if (supported) {
 					await Linking.openURL(url)
 				} else {
-					Alert.alert('Error', 'Cannot open this URL')
+					Alert.alert(t('errors.title'), t('errors.cannot_open_url'))
 				}
 			} catch {
-				Alert.alert('Error', 'Failed to open URL')
+				Alert.alert(t('errors.title'), t('errors.failed_to_open_url'))
 			}
 		}
 	}

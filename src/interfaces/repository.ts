@@ -1,0 +1,10 @@
+export interface IRepository {
+	id: number
+	name: string
+	description: string | null
+	language: string | null
+	stargazers_count: number
+	forks_count: number
+	html_url: string
+}
+

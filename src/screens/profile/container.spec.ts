@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { Alert, Linking } from 'react-native'
 import type { IUser } from '~/interfaces/user'
 import { useGetUser } from '~/services/user'
-import { useContainer } from './container'
+import { useProfileContainer } from './container'
 
 jest.mock('../../services/user')
 jest.mock('react-native', () => ({
@@ -35,7 +35,7 @@ describe('useContainer', () => {
 			error: null,
 		} as unknown as ReturnType<typeof useGetUser>)
 
-		const { result } = renderHook(() => useContainer())
+		const { result } = renderHook(() => useProfileContainer())
 
 		expect(result.current.data).toBe(mockData)
 		expect(result.current.isLoading).toBe(false)
@@ -49,7 +49,7 @@ describe('useContainer', () => {
 			error: null,
 		} as unknown as ReturnType<typeof useGetUser>)
 
-		const { result } = renderHook(() => useContainer())
+		const { result } = renderHook(() => useProfileContainer())
 
 		expect(result.current.isLoading).toBe(true)
 	})
@@ -63,7 +63,7 @@ describe('useContainer', () => {
 			error: mockError,
 		} as unknown as ReturnType<typeof useGetUser>)
 
-		const { result } = renderHook(() => useContainer())
+		const { result } = renderHook(() => useProfileContainer())
 
 		expect(result.current.error).toBe(mockError)
 	})
@@ -78,21 +78,21 @@ describe('useContainer', () => {
 		})
 
 		it('should format numbers in millions', () => {
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			expect(result.current.formatNumber(1500000)).toBe('1.5M')
 			expect(result.current.formatNumber(2000000)).toBe('2.0M')
 		})
 
 		it('should format numbers in thousands', () => {
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			expect(result.current.formatNumber(1500)).toBe('1.5K')
 			expect(result.current.formatNumber(2000)).toBe('2.0K')
 		})
 
 		it('should return string for small numbers', () => {
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			expect(result.current.formatNumber(999)).toBe('999')
 			expect(result.current.formatNumber(0)).toBe('0')
@@ -109,7 +109,7 @@ describe('useContainer', () => {
 		})
 
 		it('should format date in pt-BR locale', () => {
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			const dateString = '2023-01-15T10:30:00Z'
 			const formatted = result.current.formatDate(dateString)
@@ -132,7 +132,7 @@ describe('useContainer', () => {
 			mockLinking.canOpenURL.mockResolvedValue(true)
 			mockLinking.openURL.mockResolvedValue(undefined)
 
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			const testUrl = 'https://example.com'
 			const openUrlFunction = result.current.handleOpenUrl(testUrl)
@@ -149,7 +149,7 @@ describe('useContainer', () => {
 
 			mockLinking.canOpenURL.mockResolvedValue(false)
 
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			const testUrl = 'invalid://url'
 			const openUrlFunction = result.current.handleOpenUrl(testUrl)
@@ -170,7 +170,7 @@ describe('useContainer', () => {
 
 			mockLinking.canOpenURL.mockRejectedValue(new Error('Network error'))
 
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			const testUrl = 'https://example.com'
 			const openUrlFunction = result.current.handleOpenUrl(testUrl)
@@ -191,7 +191,7 @@ describe('useContainer', () => {
 			mockLinking.canOpenURL.mockResolvedValue(true)
 			mockLinking.openURL.mockRejectedValue(new Error('Failed to open'))
 
-			const { result } = renderHook(() => useContainer())
+			const { result } = renderHook(() => useProfileContainer())
 
 			const testUrl = 'https://example.com'
 			const openUrlFunction = result.current.handleOpenUrl(testUrl)
@@ -214,7 +214,7 @@ describe('useContainer', () => {
 			error: null,
 		} as unknown as ReturnType<typeof useGetUser>)
 
-		const { result } = renderHook(() => useContainer())
+		const { result } = renderHook(() => useProfileContainer())
 
 		expect(typeof result.current.handleOpenUrl).toBe('function')
 		expect(typeof result.current.formatNumber).toBe('function')

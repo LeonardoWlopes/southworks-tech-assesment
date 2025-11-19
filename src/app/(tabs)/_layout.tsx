@@ -28,11 +28,11 @@ export default function TabsLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="home"
+				name="repositories"
 				options={{
-					title: t('home'),
+					title: t('repositories'),
 					tabBarIcon: ({ color, size }) => (
-						<MaterialIcons name="home" size={size} color={color} />
+						<MaterialIcons name="code" size={size} color={color} />
 					),
 				}}
 			/>

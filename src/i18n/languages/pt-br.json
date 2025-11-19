@@ -4,6 +4,11 @@
 	},
 	"profile": {
 		"error": "Erro ao carregar informações do usuário",
+		"errors": {
+			"cannot_open_url": "Não foi possível abrir esta URL",
+			"failed_to_open_url": "Falha ao abrir URL",
+			"title": "Erro"
+		},
 		"info": {
 			"company": "Empresa:",
 			"created_at": "Criado em:",
@@ -25,8 +30,18 @@
 			"public_repos": "Repositórios\nPúblicos"
 		}
 	},
+	"repositories": {
+		"empty": "Nenhum repositório encontrado",
+		"error": "Erro ao carregar repositórios",
+		"errors": {
+			"cannot_open_url": "Não foi possível abrir esta URL",
+			"failed_to_open_url": "Falha ao abrir URL",
+			"title": "Erro"
+		},
+		"loading": "Carregando repositórios..."
+	},
 	"tabs": {
-		"home": "Home",
-		"profile": "Perfil"
+		"profile": "Perfil",
+		"repositories": "Repositórios"
 	}
 }
