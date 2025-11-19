@@ -1,4 +1,5 @@
 export enum EQueryKeys {
 	USER = 'USER',
 	REPOSITORIES = 'REPOSITORIES',
+	ORGANIZATIONS = 'ORGANIZATIONS',
 }

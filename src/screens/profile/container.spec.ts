@@ -1,10 +1,13 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { Alert, Linking } from 'react-native'
+import type { IOrganization } from '~/interfaces/organization'
 import type { IUser } from '~/interfaces/user'
+import { useGetOrganizations } from '~/services/organization'
 import { useGetUser } from '~/services/user'
 import { useProfileContainer } from './container'
 
 jest.mock('../../services/user')
+jest.mock('../../services/organization')
 jest.mock('react-native', () => ({
 	Alert: {
 		alert: jest.fn(),
@@ -16,10 +19,18 @@ jest.mock('react-native', () => ({
 }))
 
 const mockUseGetUser = useGetUser as jest.MockedFunction<typeof useGetUser>
+const mockUseGetOrganizations = useGetOrganizations as jest.MockedFunction<
+	typeof useGetOrganizations
+>
 
 describe('useContainer', () => {
 	beforeEach(() => {
 		jest.clearAllMocks()
+		mockUseGetOrganizations.mockReturnValue({
+			data: [],
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
 	})
 
 	it('should return data from useGetUser', () => {
@@ -49,6 +60,30 @@ describe('useContainer', () => {
 			error: null,
 		} as unknown as ReturnType<typeof useGetUser>)
 
+		mockUseGetOrganizations.mockReturnValue({
+			data: [],
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
+
+		const { result } = renderHook(() => useProfileContainer())
+
+		expect(result.current.isLoading).toBe(true)
+	})
+
+	it('should return loading state when organizations are loading', () => {
+		mockUseGetUser.mockReturnValue({
+			data: null,
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetUser>)
+
+		mockUseGetOrganizations.mockReturnValue({
+			data: [],
+			isLoading: true,
+			error: null,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
+
 		const { result } = renderHook(() => useProfileContainer())
 
 		expect(result.current.isLoading).toBe(true)
@@ -63,9 +98,71 @@ describe('useContainer', () => {
 			error: mockError,
 		} as unknown as ReturnType<typeof useGetUser>)
 
+		mockUseGetOrganizations.mockReturnValue({
+			data: [],
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
+
 		const { result } = renderHook(() => useProfileContainer())
 
 		expect(result.current.error).toBe(mockError)
+	})
+
+	it('should return error state when organizations fail', () => {
+		const mockError = new Error('Organizations error')
+
+		mockUseGetUser.mockReturnValue({
+			data: null,
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetUser>)
+
+		mockUseGetOrganizations.mockReturnValue({
+			data: [],
+			isLoading: false,
+			error: mockError,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
+
+		const { result } = renderHook(() => useProfileContainer())
+
+		expect(result.current.error).toBe(mockError)
+	})
+
+	it('should return organizations data', () => {
+		const mockOrganizations: IOrganization[] = [
+			{
+				id: 1,
+				login: 'org1',
+				node_id: 'node1',
+				url: 'https://api.github.com/orgs/org1',
+				repos_url: 'https://api.github.com/orgs/org1/repos',
+				events_url: 'https://api.github.com/orgs/org1/events',
+				hooks_url: 'https://api.github.com/orgs/org1/hooks',
+				issues_url: 'https://api.github.com/orgs/org1/issues',
+				members_url: 'https://api.github.com/orgs/org1/members',
+				public_members_url:
+					'https://api.github.com/orgs/org1/public_members',
+				avatar_url: 'https://github.com/org1.png',
+				description: 'Test org',
+			},
+		]
+
+		mockUseGetUser.mockReturnValue({
+			data: { id: 1 } as IUser,
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetUser>)
+
+		mockUseGetOrganizations.mockReturnValue({
+			data: mockOrganizations,
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
+
+		const { result } = renderHook(() => useProfileContainer())
+
+		expect(result.current.organizations).toEqual(mockOrganizations)
 	})
 
 	describe('formatNumber', () => {
@@ -75,6 +172,11 @@ describe('useContainer', () => {
 				isLoading: false,
 				error: null,
 			} as unknown as ReturnType<typeof useGetUser>)
+			mockUseGetOrganizations.mockReturnValue({
+				data: [],
+				isLoading: false,
+				error: null,
+			} as unknown as ReturnType<typeof useGetOrganizations>)
 		})
 
 		it('should format numbers in millions', () => {
@@ -106,6 +208,11 @@ describe('useContainer', () => {
 				isLoading: false,
 				error: null,
 			} as unknown as ReturnType<typeof useGetUser>)
+			mockUseGetOrganizations.mockReturnValue({
+				data: [],
+				isLoading: false,
+				error: null,
+			} as unknown as ReturnType<typeof useGetOrganizations>)
 		})
 
 		it('should format date in pt-BR locale', () => {
@@ -125,6 +232,11 @@ describe('useContainer', () => {
 				isLoading: false,
 				error: null,
 			} as unknown as ReturnType<typeof useGetUser>)
+			mockUseGetOrganizations.mockReturnValue({
+				data: [],
+				isLoading: false,
+				error: null,
+			} as unknown as ReturnType<typeof useGetOrganizations>)
 		})
 
 		it('should open URL when supported', async () => {
@@ -214,12 +326,19 @@ describe('useContainer', () => {
 			error: null,
 		} as unknown as ReturnType<typeof useGetUser>)
 
+		mockUseGetOrganizations.mockReturnValue({
+			data: [],
+			isLoading: false,
+			error: null,
+		} as unknown as ReturnType<typeof useGetOrganizations>)
+
 		const { result } = renderHook(() => useProfileContainer())
 
 		expect(typeof result.current.handleOpenUrl).toBe('function')
 		expect(typeof result.current.formatNumber).toBe('function')
 		expect(typeof result.current.formatDate).toBe('function')
 		expect(result.current.data).toBeDefined()
+		expect(result.current.organizations).toBeDefined()
 		expect(typeof result.current.isLoading).toBe('boolean')
 	})
 })

@@ -128,5 +128,37 @@ export function useLoginStyles() {
 			fontWeight: '500',
 			textAlign: 'center',
 		},
+		organizationsSection: {
+			marginTop: 25,
+			alignItems: 'center',
+		},
+		organizationsTitle: {
+			fontSize: 18,
+			fontWeight: 'bold',
+			marginBottom: 15,
+			color: theme.colors.text,
+			textAlign: 'center',
+		},
+		organizationsList: {
+			flexDirection: 'row',
+			flexWrap: 'wrap',
+			gap: 12,
+			justifyContent: 'center',
+		},
+		organizationItem: {
+			alignItems: 'center',
+			width: 80,
+		},
+		organizationAvatar: {
+			width: 60,
+			height: 60,
+			borderRadius: 30,
+			marginBottom: 8,
+		},
+		organizationName: {
+			fontSize: 12,
+			textAlign: 'center',
+			color: theme.colors.text,
+		},
 	})
 }

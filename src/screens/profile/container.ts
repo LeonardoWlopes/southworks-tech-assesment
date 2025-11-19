@@ -2,11 +2,21 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { useTranslation } from 'react-i18next'
 import { Alert, Linking } from 'react-native'
+import { useGetOrganizations } from '~/services/organization'
 import { useGetUser } from '~/services/user'
 
 export function useProfileContainer() {
-	const { data, isLoading, error } = useGetUser()
 	const { t } = useTranslation('profile')
+
+	const { data, isLoading: isLoadingUser, error: errorUser } = useGetUser()
+	const {
+		data: organizations,
+		isLoading: isLoadingOrganizations,
+		error: errorOrganizations,
+	} = useGetOrganizations()
+
+	const isLoading = isLoadingUser || isLoadingOrganizations
+	const error = errorUser || errorOrganizations
 
 	function handleOpenUrl(url: string) {
 		return async function openUrl() {
@@ -41,6 +51,7 @@ export function useProfileContainer() {
 		data,
 		isLoading,
 		error,
+		organizations,
 		handleOpenUrl,
 		formatNumber,
 		formatDate,

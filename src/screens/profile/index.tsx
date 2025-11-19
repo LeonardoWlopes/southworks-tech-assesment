@@ -1,7 +1,7 @@
+import { Image } from 'expo-image'
 import { useTranslation } from 'react-i18next'
 import {
 	ActivityIndicator,
-	Image,
 	ScrollView,
 	Switch,
 	Text,
@@ -15,9 +15,18 @@ import { useProfileContainer } from './container'
 import { useLoginStyles } from './styles'
 
 export function ProfileScreen() {
-	const { data, isLoading, error, handleOpenUrl, formatNumber, formatDate } =
-		useProfileContainer()
+	const {
+		data,
+		isLoading,
+		error,
+		organizations,
+		handleOpenUrl,
+		formatNumber,
+		formatDate,
+	} = useProfileContainer()
+
 	const { t } = useTranslation('profile')
+
 	const { theme, toggleTheme, themeMode } = useThemeContext()
 
 	const styles = useLoginStyles()
@@ -104,7 +113,7 @@ export function ProfileScreen() {
 				<Image
 					source={{ uri: data.avatar_url }}
 					style={styles.avatar}
-					resizeMode="cover"
+					contentFit="cover"
 				/>
 				<Text style={styles.userName}>{data.name || data.login}</Text>
 				<Text style={styles.userLogin}>@{data.login}</Text>
@@ -194,6 +203,38 @@ export function ProfileScreen() {
 					</Text>
 				</View>
 			</View>
+
+			{organizations && organizations.length > 0 && (
+				<View style={styles.organizationsSection}>
+					<Text style={styles.organizationsTitle}>
+						{t('info.organizations')}
+					</Text>
+					<View style={styles.organizationsList}>
+						{organizations.map((org) => (
+							<TouchableOpacity
+								key={org.id}
+								{...DEFAULT_TOUCHABLE_OPACITY_PROPS}
+								style={styles.organizationItem}
+								onPress={handleOpenUrl(
+									`https://github.com/${org.login}`,
+								)}
+							>
+								<Image
+									source={{ uri: org.avatar_url }}
+									style={styles.organizationAvatar}
+									contentFit="cover"
+								/>
+								<Text
+									style={styles.organizationName}
+									numberOfLines={2}
+								>
+									{org.login}
+								</Text>
+							</TouchableOpacity>
+						))}
+					</View>
+				</View>
+			)}
 
 			<View style={styles.linkSection}>
 				<TouchableOpacity
