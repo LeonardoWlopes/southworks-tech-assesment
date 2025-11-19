@@ -1,40 +1,35 @@
-import { create, type StateCreator } from 'zustand'
-import {
-	appStoreDisposableSlice,
-	type IDisposableSlice,
-	type IDisposableState,
-} from './disposable'
-import {
-	appStorePersistentSlice,
-	type IPersistentSlice,
-	type IPersistentState,
-} from './persist'
+import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { ETheme } from '~/enums/theme'
+import { zustandStorage } from '~/utils/storage'
 
-interface ISharedSlice {
-	set: (
-		state: Partial<IDisposableState & IPersistentState & ISharedSlice>,
-	) => void
+interface IAppState {
+	theme: ETheme
+	showRepositoryLanguage: boolean
 }
 
-const createSharedSlice: StateCreator<
-	ISharedSlice & IDisposableSlice & IPersistentSlice,
-	[],
-	[],
-	ISharedSlice
-> = (_, get, __) => ({
-	set: (state) => {
-		get().setPersist(state)
-		get().setDisposable(state)
-	},
-})
+interface IAppActions {
+	set: (state: Partial<IAppState>) => void
+	reset: () => void
+}
 
-/**
- * @description !IMPORTANT: when using this store with a callback, use the `useShallow` hook from `zustand/react/shallow` to prevent unnecessary re-renders and a potential infinite loop.
- */
-export const useAppStore = create<
-	IDisposableSlice & IPersistentSlice & ISharedSlice
->()((...a) => ({
-	...appStoreDisposableSlice(...a),
-	...appStorePersistentSlice(...a),
-	...createSharedSlice(...a),
-}))
+type IAppStore = IAppState & IAppActions
+
+const DEFAULT_STATE: IAppState = {
+	theme: ETheme.LIGHT,
+	showRepositoryLanguage: true,
+}
+
+export const useAppStore = create<IAppStore>()(
+	persist(
+		(set) => ({
+			...DEFAULT_STATE,
+			set: (state) => set(state),
+			reset: () => set(DEFAULT_STATE),
+		}),
+		{
+			name: 'app-store',
+			storage: createJSONStorage(() => zustandStorage),
+		},
+	),
+)

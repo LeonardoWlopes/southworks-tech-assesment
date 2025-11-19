@@ -1,42 +1,44 @@
-import { renderHook } from '@testing-library/react-hooks'
-import { act } from 'react'
-import { useAppStore } from '~/stores/app-store'
-
-jest.mock('@react-native-async-storage/async-storage', () => ({
-	setItem: jest.fn(),
-	getItem: jest.fn(),
-	removeItem: jest.fn(),
-}))
+import { renderHook, act } from '@testing-library/react-hooks'
+import { ETheme } from '~/enums/theme'
+import { useAppStore } from './index'
 
 describe('useAppStore', () => {
+	beforeEach(() => {
+		useAppStore.getState().reset()
+	})
+
 	it('should initialize with default state', () => {
 		const { result } = renderHook(() => useAppStore())
-		expect(result.current).toBeDefined()
+
+		expect(result.current.theme).toBe(ETheme.LIGHT)
+		expect(result.current.showRepositoryLanguage).toBe(true)
 	})
 
-	it('should update state using set method', () => {
+	it('should update state when set is called', () => {
 		const { result } = renderHook(() => useAppStore())
 
 		act(() => {
-			// @ts-ignore
-			result.current.set({ someKey: 'someValue' })
+			result.current.set({ theme: ETheme.DARK })
 		})
 
-		// @ts-ignore
-		expect(result.current.someKey).toBe('someValue')
+		expect(result.current.theme).toBe(ETheme.DARK)
 	})
 
-	it('should call setPersist and setDisposable when set is called', () => {
+	it('should reset to default state', () => {
 		const { result } = renderHook(() => useAppStore())
-		const setPersistSpy = jest.spyOn(result.current, 'setPersist')
-		const setDisposableSpy = jest.spyOn(result.current, 'setDisposable')
 
 		act(() => {
-			// @ts-ignore
-			result.current.set({ someKey: 'someValue' })
+			result.current.set({ theme: ETheme.DARK, showRepositoryLanguage: false })
 		})
 
-		expect(setPersistSpy).toHaveBeenCalledWith({ someKey: 'someValue' })
-		expect(setDisposableSpy).toHaveBeenCalledWith({ someKey: 'someValue' })
+		expect(result.current.theme).toBe(ETheme.DARK)
+		expect(result.current.showRepositoryLanguage).toBe(false)
+
+		act(() => {
+			result.current.reset()
+		})
+
+		expect(result.current.theme).toBe(ETheme.LIGHT)
+		expect(result.current.showRepositoryLanguage).toBe(true)
 	})
 })

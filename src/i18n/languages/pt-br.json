@@ -38,6 +38,9 @@
 			"failed_to_open_url": "Falha ao abrir URL",
 			"title": "Erro"
 		},
+		"header": {
+			"show_language": "Mostrar linguagem"
+		},
 		"loading": "Carregando repositórios..."
 	},
 	"tabs": {

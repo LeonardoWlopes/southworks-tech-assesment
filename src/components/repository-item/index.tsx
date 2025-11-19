@@ -1,9 +1,16 @@
 import { Text, View } from 'react-native'
+import { useShallow } from 'zustand/react/shallow'
+import { useAppStore } from '~/stores/app-store'
 import { useRepositoryItemStyles } from './styles'
 import type { IRepositoryItemProps } from './types'
 
 export function RepositoryItem({ repository }: IRepositoryItemProps) {
 	const styles = useRepositoryItemStyles()
+	const { showRepositoryLanguage } = useAppStore(
+		useShallow(({ showRepositoryLanguage }) => ({
+			showRepositoryLanguage,
+		})),
+	)
 
 	return (
 		<View style={styles.repositoryItem}>
@@ -16,7 +23,7 @@ export function RepositoryItem({ repository }: IRepositoryItemProps) {
 			)}
 
 			<View style={styles.repositoryMeta}>
-				{repository.language && (
+				{showRepositoryLanguage && repository.language && (
 					<View style={styles.languageBadge}>
 						<Text style={styles.languageText}>
 							{repository.language}
