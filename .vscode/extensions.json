@@ -1,0 +1,25 @@
+{
+	"recommendations": [
+		"streetsidesoftware.code-spell-checker-portuguese-brazilian",
+		"streetsidesoftware.code-spell-checker",
+		"naumovs.color-highlight",
+		"editorconfig.editorconfig",
+		"usernamehw.errorlens",
+		"gruntfuggly.todo-tree",
+		"formulahendry.auto-close-tag",
+		"formulahendry.auto-rename-tag",
+		"biomejs.biome",
+		"expo.vscode-expo-tools",
+		"wix.vscode-import-cost",
+		"simonsiefke.svg-preview",
+		"lokalise.i18n-ally",
+		"redhat.vscode-yaml",
+		"davidanson.vscode-markdownlint",
+		"ryanluker.vscode-coverage-gutters",
+		"ritwickdey.liveserver"
+	],
+	"unwantedRecommendations": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode"
+	]
+}
