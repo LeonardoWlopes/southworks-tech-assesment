@@ -1,21 +1,25 @@
 import { StyleSheet } from 'react-native'
+import { useThemeContext } from '~/providers/theme-provider'
 
 export function useRepositoryItemStyles() {
+	const { theme } = useThemeContext()
+
 	return StyleSheet.create({
 		repositoryItem: {
 			padding: 16,
 			borderBottomWidth: 1,
-			borderBottomColor: 'rgba(0,0,0,0.1)',
-			backgroundColor: 'white',
+			borderBottomColor: theme.colors.border,
+			backgroundColor: theme.colors.surface,
 		},
 		repositoryName: {
 			fontSize: 18,
 			fontWeight: 'bold',
 			marginBottom: 4,
+			color: theme.colors.text,
 		},
 		repositoryDescription: {
 			fontSize: 14,
-			color: '#666',
+			color: theme.colors.textSecondary,
 			marginBottom: 8,
 		},
 		repositoryMeta: {
@@ -30,17 +34,18 @@ export function useRepositoryItemStyles() {
 		},
 		metaText: {
 			fontSize: 12,
-			color: '#666',
+			color: theme.colors.textSecondary,
 		},
 		languageBadge: {
 			paddingHorizontal: 8,
 			paddingVertical: 4,
 			borderRadius: 4,
-			backgroundColor: 'rgba(0,0,0,0.05)',
+			backgroundColor: theme.colors.badgeBackground,
 		},
 		languageText: {
 			fontSize: 12,
 			fontWeight: '500',
+			color: theme.colors.text,
 		},
 	})
 }

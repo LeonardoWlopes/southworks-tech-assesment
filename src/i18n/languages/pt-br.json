@@ -9,6 +9,9 @@
 			"failed_to_open_url": "Falha ao abrir URL",
 			"title": "Erro"
 		},
+		"header": {
+			"dark_mode": "Modo escuro"
+		},
 		"info": {
 			"company": "Empresa:",
 			"created_at": "Criado em:",

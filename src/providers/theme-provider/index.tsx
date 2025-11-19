@@ -1,11 +1,14 @@
 import { createContext, type ReactNode, useContext } from 'react'
+import type { ETheme } from '~/enums/theme'
 import type { ITheme } from '~/interfaces/theme'
 import { useThemeProviderContainer } from './container'
 
 interface IAppThemeProviderContext {
 	setLightTheme: () => void
 	setDarkTheme: () => void
+	toggleTheme: () => void
 	theme: ITheme
+	themeMode: ETheme
 }
 
 const AppThemeProviderContext = createContext<IAppThemeProviderContext>(
@@ -13,7 +16,7 @@ const AppThemeProviderContext = createContext<IAppThemeProviderContext>(
 )
 
 export function AppThemeProvider({ children }: { children: ReactNode }) {
-	const { currentTheme, setDarkTheme, setLightTheme } =
+	const { themeMode, setDarkTheme, setLightTheme, toggleTheme, theme } =
 		useThemeProviderContainer()
 
 	return (
@@ -21,7 +24,9 @@ export function AppThemeProvider({ children }: { children: ReactNode }) {
 			value={{
 				setLightTheme,
 				setDarkTheme,
-				theme: currentTheme,
+				toggleTheme,
+				theme: themeMode,
+				themeMode: theme,
 			}}
 		>
 			{children}

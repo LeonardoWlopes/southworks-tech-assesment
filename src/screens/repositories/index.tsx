@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { RepositoryItem } from '~/components/repository-item'
 import type { IRepository } from '~/interfaces/repository'
+import { useThemeContext } from '~/providers/theme-provider'
 import { useAppStore } from '~/stores/app-store'
 import { DEFAULT_TOUCHABLE_OPACITY_PROPS } from '~/utils/props'
 import { useRepositoriesContainer } from './container'
@@ -17,6 +18,8 @@ import { useRepositoriesStyles } from './styles'
 
 export function RepositoriesScreen() {
 	const styles = useRepositoriesStyles()
+
+	const { theme } = useThemeContext()
 
 	const { t } = useTranslation('repositories')
 
@@ -36,8 +39,14 @@ export function RepositoriesScreen() {
 	if (isLoading) {
 		return (
 			<View style={styles.loadingContainer}>
-				<ActivityIndicator size="large" color="#007AFF" />
-				<Text style={{ marginTop: 15, fontSize: 16 }}>
+				<ActivityIndicator size="large" color={theme.colors.primary} />
+				<Text
+					style={{
+						marginTop: 15,
+						fontSize: 16,
+						color: theme.colors.text,
+					}}
+				>
 					{t('loading')}
 				</Text>
 			</View>
@@ -50,7 +59,7 @@ export function RepositoriesScreen() {
 				<Text
 					style={{
 						fontSize: 18,
-						color: 'red',
+						color: theme.colors.error,
 						textAlign: 'center',
 					}}
 				>
@@ -61,6 +70,7 @@ export function RepositoriesScreen() {
 						fontSize: 14,
 						marginTop: 10,
 						textAlign: 'center',
+						color: theme.colors.text,
 					}}
 				>
 					{error.message}
@@ -72,7 +82,13 @@ export function RepositoriesScreen() {
 	if (repositories.length === 0) {
 		return (
 			<View style={styles.emptyContainer}>
-				<Text style={{ fontSize: 16, textAlign: 'center' }}>
+				<Text
+					style={{
+						fontSize: 16,
+						textAlign: 'center',
+						color: theme.colors.text,
+					}}
+				>
 					{t('empty')}
 				</Text>
 			</View>
@@ -113,13 +129,16 @@ export function RepositoriesScreen() {
 					<RefreshControl
 						refreshing={isRefetching}
 						onRefresh={refetch}
-						tintColor="#007AFF"
+						tintColor={theme.colors.primary}
 					/>
 				}
 				ListFooterComponent={
 					isFetchingNextPage ? (
 						<View style={styles.loadingMore}>
-							<ActivityIndicator size="small" color="#007AFF" />
+							<ActivityIndicator
+								size="small"
+								color={theme.colors.primary}
+							/>
 						</View>
 					) : null
 				}

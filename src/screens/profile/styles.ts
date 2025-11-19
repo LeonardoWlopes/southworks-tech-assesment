@@ -1,19 +1,23 @@
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useThemeContext } from '~/providers/theme-provider'
 
 export function useLoginStyles() {
 	const { top } = useSafeAreaInsets()
+	const { theme } = useThemeContext()
 
 	return StyleSheet.create({
 		container: {
 			flex: 1,
 			padding: 20,
+			backgroundColor: theme.colors.background,
 		},
 		loadingContainer: {
 			flex: 1,
 			justifyContent: 'center',
 			alignItems: 'center',
 			paddingTop: top,
+			backgroundColor: theme.colors.background,
 		},
 		scrollContainer: {
 			flexGrow: 1,
@@ -22,6 +26,21 @@ export function useLoginStyles() {
 		header: {
 			alignItems: 'center',
 			marginBottom: 30,
+		},
+		themeToggleContainer: {
+			flexDirection: 'row',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			paddingVertical: 12,
+			paddingHorizontal: 15,
+			marginBottom: 20,
+			borderRadius: 8,
+			backgroundColor: theme.colors.cardBackground,
+		},
+		themeToggleLabel: {
+			fontSize: 16,
+			fontWeight: '500',
+			color: theme.colors.text,
 		},
 		avatar: {
 			width: 100,
@@ -34,17 +53,19 @@ export function useLoginStyles() {
 			fontWeight: 'bold',
 			textAlign: 'center',
 			marginBottom: 5,
+			color: theme.colors.text,
 		},
 		userLogin: {
 			fontSize: 16,
-			opacity: 0.7,
 			textAlign: 'center',
+			color: theme.colors.textTertiary,
 		},
 		description: {
 			fontSize: 16,
 			textAlign: 'center',
 			marginVertical: 15,
 			lineHeight: 22,
+			color: theme.colors.text,
 		},
 		infoSection: {
 			marginTop: 20,
@@ -57,15 +78,17 @@ export function useLoginStyles() {
 			paddingHorizontal: 15,
 			marginVertical: 2,
 			borderRadius: 8,
-			backgroundColor: 'rgba(0,0,0,0.05)',
+			backgroundColor: theme.colors.cardBackground,
 		},
 		infoLabel: {
 			fontSize: 16,
 			fontWeight: '500',
+			color: theme.colors.text,
 		},
 		infoValue: {
 			fontSize: 16,
 			fontWeight: 'bold',
+			color: theme.colors.text,
 		},
 		statsContainer: {
 			flexDirection: 'row',
@@ -73,7 +96,7 @@ export function useLoginStyles() {
 			marginTop: 25,
 			paddingVertical: 20,
 			borderRadius: 12,
-			backgroundColor: 'rgba(0,0,0,0.03)',
+			backgroundColor: theme.colors.cardBackgroundLight,
 		},
 		statItem: {
 			alignItems: 'center',
@@ -82,24 +105,25 @@ export function useLoginStyles() {
 			fontSize: 20,
 			fontWeight: 'bold',
 			marginBottom: 5,
+			color: theme.colors.text,
 		},
 		statLabel: {
 			fontSize: 12,
-			opacity: 0.7,
 			textAlign: 'center',
+			color: theme.colors.textTertiary,
 		},
 		linkSection: {
 			marginTop: 25,
 		},
 		linkButton: {
-			backgroundColor: '#007AFF',
+			backgroundColor: theme.colors.primary,
 			paddingVertical: 12,
 			paddingHorizontal: 20,
 			borderRadius: 8,
 			marginVertical: 5,
 		},
 		linkButtonText: {
-			color: 'white',
+			color: theme.colors.surface,
 			fontSize: 16,
 			fontWeight: '500',
 			textAlign: 'center',

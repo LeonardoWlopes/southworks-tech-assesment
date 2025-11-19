@@ -1,13 +1,15 @@
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useThemeContext } from '~/providers/theme-provider'
 
 export function useRepositoriesStyles() {
 	const { top } = useSafeAreaInsets()
+	const { theme } = useThemeContext()
 
 	return StyleSheet.create({
 		container: {
 			flex: 1,
-			backgroundColor: 'white',
+			backgroundColor: theme.colors.surface,
 			paddingTop: top,
 		},
 		header: {
@@ -16,24 +18,25 @@ export function useRepositoriesStyles() {
 			alignItems: 'center',
 			paddingHorizontal: 16,
 			paddingVertical: 12,
-			backgroundColor: 'white',
+			backgroundColor: theme.colors.surface,
 			borderBottomWidth: 1,
-			borderBottomColor: 'rgba(0,0,0,0.1)',
+			borderBottomColor: theme.colors.border,
 		},
 		headerLabel: {
 			fontSize: 16,
 			fontWeight: '500',
+			color: theme.colors.text,
 		},
 		listContainer: {
 			flex: 1,
-			backgroundColor: 'white',
+			backgroundColor: theme.colors.surface,
 		},
 		loadingContainer: {
 			flex: 1,
 			justifyContent: 'center',
 			alignItems: 'center',
 			paddingTop: top,
-			backgroundColor: 'white',
+			backgroundColor: theme.colors.surface,
 		},
 		loadingMore: {
 			padding: 16,
@@ -44,7 +47,7 @@ export function useRepositoriesStyles() {
 			justifyContent: 'center',
 			alignItems: 'center',
 			paddingTop: top,
-			backgroundColor: 'white',
+			backgroundColor: theme.colors.surface,
 		},
 	})
 }

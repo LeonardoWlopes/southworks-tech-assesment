@@ -3,10 +3,13 @@ import {
 	ActivityIndicator,
 	Image,
 	ScrollView,
+	Switch,
 	Text,
 	TouchableOpacity,
 	View,
 } from 'react-native'
+import { ETheme } from '~/enums/theme'
+import { useThemeContext } from '~/providers/theme-provider'
 import { DEFAULT_TOUCHABLE_OPACITY_PROPS } from '~/utils/props'
 import { useProfileContainer } from './container'
 import { useLoginStyles } from './styles'
@@ -15,14 +18,23 @@ export function ProfileScreen() {
 	const { data, isLoading, error, handleOpenUrl, formatNumber, formatDate } =
 		useProfileContainer()
 	const { t } = useTranslation('profile')
+	const { theme, toggleTheme, themeMode } = useThemeContext()
 
 	const styles = useLoginStyles()
+
+	const isDarkMode = themeMode === ETheme.DARK
 
 	if (isLoading) {
 		return (
 			<View style={styles.loadingContainer}>
-				<ActivityIndicator size="large" color="#007AFF" />
-				<Text style={{ marginTop: 15, fontSize: 16 }}>
+				<ActivityIndicator size="large" color={theme.colors.primary} />
+				<Text
+					style={{
+						marginTop: 15,
+						fontSize: 16,
+						color: theme.colors.text,
+					}}
+				>
 					{t('loading')}
 				</Text>
 			</View>
@@ -35,7 +47,7 @@ export function ProfileScreen() {
 				<Text
 					style={{
 						fontSize: 18,
-						color: 'red',
+						color: theme.colors.error,
 						textAlign: 'center',
 					}}
 				>
@@ -47,6 +59,7 @@ export function ProfileScreen() {
 						fontSize: 14,
 						marginTop: 10,
 						textAlign: 'center',
+						color: theme.colors.text,
 					}}
 				>
 					{error.message}
@@ -58,7 +71,13 @@ export function ProfileScreen() {
 	if (!data) {
 		return (
 			<View style={styles.loadingContainer}>
-				<Text style={{ fontSize: 16, textAlign: 'center' }}>
+				<Text
+					style={{
+						fontSize: 16,
+						textAlign: 'center',
+						color: theme.colors.text,
+					}}
+				>
 					{t('not_found')}
 				</Text>
 			</View>
@@ -71,6 +90,16 @@ export function ProfileScreen() {
 			contentContainerStyle={styles.scrollContainer}
 			showsVerticalScrollIndicator={false}
 		>
+			<View style={styles.themeToggleContainer}>
+				<Text style={styles.themeToggleLabel}>
+					{t('header.dark_mode')}
+				</Text>
+				<Switch
+					value={isDarkMode}
+					onValueChange={() => toggleTheme()}
+				/>
+			</View>
+
 			<View style={styles.header}>
 				<Image
 					source={{ uri: data.avatar_url }}

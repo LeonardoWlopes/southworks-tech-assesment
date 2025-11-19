@@ -23,11 +23,17 @@ export function useThemeProviderContainer() {
 		set({ theme: ETheme.DARK })
 	}, [])
 
-	const currentTheme = useMemo(() => THEMES[theme], [theme])
+	const toggleTheme = useCallback(() => {
+		set({ theme: theme === ETheme.LIGHT ? ETheme.DARK : ETheme.LIGHT })
+	}, [theme])
+
+	const themeMode = useMemo(() => THEMES[theme], [theme])
 
 	return {
 		setLightTheme,
 		setDarkTheme,
-		currentTheme,
+		toggleTheme,
+		themeMode,
+		theme,
 	}
 }

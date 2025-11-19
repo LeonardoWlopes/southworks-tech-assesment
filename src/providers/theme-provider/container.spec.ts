@@ -26,7 +26,7 @@ describe('useThemeProviderContainer', () => {
 
 	it('should return the current theme', () => {
 		const { result } = renderHook(() => useThemeProviderContainer())
-		expect(result.current.currentTheme).toBe(lightTheme)
+		expect(result.current.themeMode).toBe(lightTheme)
 	})
 
 	it('should set the light theme', () => {
@@ -55,6 +55,26 @@ describe('useThemeProviderContainer', () => {
 			theme: ETheme.DARK,
 		})
 		const { result } = renderHook(() => useThemeProviderContainer())
-		expect(result.current.currentTheme).toBe(darkTheme)
+		expect(result.current.themeMode).toBe(darkTheme)
+	})
+
+	it('should toggle theme from light to dark', () => {
+		const { result } = renderHook(() => useThemeProviderContainer())
+		act(() => {
+			result.current.toggleTheme()
+		})
+		expect(setMock).toHaveBeenCalledWith({ theme: ETheme.DARK })
+	})
+
+	it('should toggle theme from dark to light', () => {
+		;(useAppStore as unknown as jest.Mock).mockReturnValue({
+			set: setMock,
+			theme: ETheme.DARK,
+		})
+		const { result } = renderHook(() => useThemeProviderContainer())
+		act(() => {
+			result.current.toggleTheme()
+		})
+		expect(setMock).toHaveBeenCalledWith({ theme: ETheme.LIGHT })
 	})
 })
