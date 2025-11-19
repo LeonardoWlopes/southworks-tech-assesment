@@ -29,6 +29,21 @@ The app uses Zustand store (`app-store`) for feature flags. Currently implemente
   - Accessible via `useAppStore()` hook: `const { showRepositoryLanguage, set } = useAppStore()`
   - To add new flags: extend `IAppState` interface in `src/stores/app-store/index.ts`
 
+## Theme System Implementation
+
+**Light and Dark Themes:**
+
+The app implements a comprehensive theme system with light and dark modes:
+
+- **Theme Provider**: Context-based theme provider (`AppThemeProvider`) manages theme state
+- **Theme Toggle**: Switch component in Profile screen header to toggle between light/dark modes
+- **Theme Persistence**: Theme preference stored in Zustand store with persistence via AsyncStorage
+- **Color System**: All colors centralized in theme files (`src/themes/light.ts` and `src/themes/dark.ts`)
+  - Colors include: `background`, `surface`, `primary`, `text`, `textSecondary`, `textTertiary`, `border`, `error`, `cardBackground`, `cardBackgroundLight`, `badgeBackground`
+- **Component Integration**: All components use theme colors via `useThemeContext()` hook
+- **Tab Navigation**: Bottom tab bar respects theme with dynamic colors for active/inactive states
+- **Toggle Function**: `toggleTheme()` callback in theme provider automatically switches between themes
+
 ## AI Usage Disclosure
 
 **Tool**: Cursor AI (Composer)
@@ -49,6 +64,10 @@ The app uses Zustand store (`app-store`) for feature flags. Currently implemente
 - Component extraction and refactoring (RepositoryItem component)
 - Navigation setup with Expo Router bottom tabs
 - Feature flag implementation for repository language toggle
+- Theme system implementation (light/dark themes with toggle)
+- Pull-to-refresh functionality for repositories list
+- Color system migration to theme-based approach
+- Tab navigation theme integration
 - Translation files (English and Portuguese)
 - Test file structure and patterns
 
@@ -66,5 +85,9 @@ The app uses Zustand store (`app-store`) for feature flags. Currently implemente
 - Implemented navigation with Expo Router file-based routing
 - Created ProfileScreen and RepositoriesScreen as required
 - Implemented specific feature flag pattern (`showRepositoryLanguage`)
+- Built comprehensive theme system with light/dark modes
+- Added pull-to-refresh functionality for repositories list
+- Migrated all hardcoded colors to theme-based system
+- Integrated theme support in tab navigation
 - Added i18n translations for all user-facing strings
 - Adapted existing patterns to challenge specifications

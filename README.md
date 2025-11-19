@@ -83,6 +83,8 @@ src/
 ├── screens/          # Screen components (Profile, Repositories)
 ├── services/         # API services and React Query hooks
 ├── stores/           # Zustand state management
+├── themes/           # Theme definitions (light, dark)
+├── providers/        # Context providers (theme, query)
 ├── utils/            # Utility functions (logging, error handling)
 ├── i18n/             # Internationalization configuration
 └── interfaces/       # TypeScript type definitions
@@ -92,9 +94,12 @@ src/
 
 * **Navigation**: Bottom tab navigation with Profile and Repositories screens
 * **Data Layer**: React Query for server state, Zustand for client state
+* **Theme System**: Light and dark themes with toggle switch in Profile screen
 * **Feature Flags**: Toggle repository language display via Zustand store
+* **Pull-to-Refresh**: Swipe down to refresh repositories list
 * **Error Handling**: Centralized error handling with logging
 * **Internationalization**: Support for English and Portuguese
+* **Pagination**: Infinite scroll pagination for repositories list
 
 ## Architecture Details
 
