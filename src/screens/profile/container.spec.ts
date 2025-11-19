@@ -159,8 +159,8 @@ describe('useContainer', () => {
 			expect(mockLinking.canOpenURL).toHaveBeenCalledWith(testUrl)
 			expect(mockLinking.openURL).not.toHaveBeenCalled()
 			expect(mockAlert.alert).toHaveBeenCalledWith(
-				'Error',
-				'Cannot open this URL',
+				'errors.title',
+				'errors.cannot_open_url',
 			)
 		})
 
@@ -179,8 +179,8 @@ describe('useContainer', () => {
 
 			expect(mockLinking.canOpenURL).toHaveBeenCalledWith(testUrl)
 			expect(mockAlert.alert).toHaveBeenCalledWith(
-				'Error',
-				'Failed to open URL',
+				'errors.title',
+				'errors.failed_to_open_url',
 			)
 		})
 
@@ -201,8 +201,8 @@ describe('useContainer', () => {
 			expect(mockLinking.canOpenURL).toHaveBeenCalledWith(testUrl)
 			expect(mockLinking.openURL).toHaveBeenCalledWith(testUrl)
 			expect(mockAlert.alert).toHaveBeenCalledWith(
-				'Error',
-				'Failed to open URL',
+				'errors.title',
+				'errors.failed_to_open_url',
 			)
 		})
 	})
