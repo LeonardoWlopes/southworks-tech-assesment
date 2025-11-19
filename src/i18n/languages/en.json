@@ -1,0 +1,50 @@
+{
+	"erros": {
+		"environment_variables": "Invalid environment variables. See the table for more details."
+	},
+	"profile": {
+		"error": "Error loading user information",
+		"errors": {
+			"cannot_open_url": "Could not open this URL",
+			"failed_to_open_url": "Failed to open URL",
+			"title": "Error"
+		},
+		"info": {
+			"company": "Company:",
+			"created_at": "Created at:",
+			"email": "Email:",
+			"location": "Location:",
+			"twitter": "Twitter:",
+			"updated_at": "Updated at:"
+		},
+		"links": {
+			"view_github": "View on GitHub",
+			"visit_blog": "Visit Blog"
+		},
+		"loading": "Loading user information...",
+		"not_found": "No information found",
+		"stats": {
+			"followers": "Followers",
+			"following": "Following",
+			"public_gists": "Public\nGists",
+			"public_repos": "Public\nRepositories"
+		}
+	},
+	"repositories": {
+		"empty": "No repositories found",
+		"error": "Error loading repositories",
+		"errors": {
+			"cannot_open_url": "Could not open this URL",
+			"failed_to_open_url": "Failed to open URL",
+			"title": "Error"
+		},
+		"header": {
+			"show_language": "Show language"
+		},
+		"loading": "Loading repositories..."
+	},
+	"tabs": {
+		"profile": "Profile",
+		"repositories": "Repositories"
+	}
+}
