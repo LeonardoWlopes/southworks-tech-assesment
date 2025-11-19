@@ -32,4 +32,3 @@ export interface IUser {
 	created_at: string
 	updated_at: string
 }
-

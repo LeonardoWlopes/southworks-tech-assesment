@@ -17,4 +17,3 @@ export function useGetUser(): UseQueryResult<IUser, AxiosError<unknown>> {
 		refetchOnWindowFocus: false,
 	})
 }
-

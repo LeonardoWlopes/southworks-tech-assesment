@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { ETheme } from '~/enums/theme'
 import { useAppStore } from './index'
 
@@ -28,7 +28,10 @@ describe('useAppStore', () => {
 		const { result } = renderHook(() => useAppStore())
 
 		act(() => {
-			result.current.set({ theme: ETheme.DARK, showRepositoryLanguage: false })
+			result.current.set({
+				theme: ETheme.DARK,
+				showRepositoryLanguage: false,
+			})
 		})
 
 		expect(result.current.theme).toBe(ETheme.DARK)

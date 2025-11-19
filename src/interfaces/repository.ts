@@ -7,4 +7,3 @@ export interface IRepository {
 	forks_count: number
 	html_url: string
 }
-
